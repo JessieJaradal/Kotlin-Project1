@@ -42,8 +42,8 @@ fun main() {
     }
 }
 
-fun processOrder(myOrder: Int) {
-    val coffee = when (myOrder) {
+fun processOrder(userOrder: Int) {
+    val coffee = when (userOrder) {
         1 -> "Vanilla Coffee"
         2 -> "Chocolate Coffee"
         3 -> "Cinnamon Coffee"
