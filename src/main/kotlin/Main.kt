@@ -1,12 +1,17 @@
-import java.util.*
 data class Order(val coffee: String, var count: Int)
 
+const val VANILLA_COFFEE = "Vanilla Coffee"
+const val CHOCOLATE_COFFEE = "Chocolate Coffee"
+const val CINNAMON_COFFEE = "Cinnamon Coffee"
+const val PEPPERMINT_COFFEE = "Peppermint Coffee"
+const val ICE_COFFEE = "Ice Coffee"
+
 val coffeePrice = mapOf(
-    "Vanilla Coffee" to 200,
-    "Chocolate Coffee" to 171,
-    "Cinnamon Coffee" to 191,
-    "Peppermint Coffee" to 181,
-    "Ice Coffee" to 141,
+    VANILLA_COFFEE to 200,
+    CHOCOLATE_COFFEE to 171,
+    CINNAMON_COFFEE to 191,
+    PEPPERMINT_COFFEE to 181,
+    ICE_COFFEE to 141,
 )
 
 val orders = mutableListOf<Order>()
@@ -19,25 +24,27 @@ fun main() {
     display()
 
     while (takingOrder) {
-        val scanner = Scanner(System.`in`)
         print("Please select your order: ")
-        val userInput = scanner.nextInt()
+        val userInput = readln()
 
-        if (userInput == 0) {
-            println("")
-            println("Receipt:")
-            println("Orders List:")
-            for (order in orders) {
-                val totalPrice = order.count * coffeePrice[order.coffee]!!
-                println("${order.coffee}(x${order.count}) - ₱$totalPrice")
+        when (userInput.toInt()) {
+            0 -> {
+                println("")
+                println("Receipt:")
+                println("Orders List:")
+                for (order in orders) {
+                    val totalPrice = order.count * coffeePrice[order.coffee]!!
+                    println("${order.coffee}(x${order.count}) - ₱$totalPrice")
+                }
+                println("Total:           ₱$totalSales")
+                println(".............................")
+                generateReport()
+                takingOrder = false
             }
-            println("Total:           ₱$totalSales")
-            println(".............................")
-            generateReport()
-            takingOrder = false
-
-        } else {
-            processOrder(userInput)
+            in 1..5 -> {
+                processOrder(userInput.toInt())
+            }
+            else -> println("Error! Please input the correct number in the menu!")
         }
     }
 }
